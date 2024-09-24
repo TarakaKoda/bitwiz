@@ -30,7 +30,7 @@ model BidItem {
   description String
   bid         Bid          @relation(fields: [bidId], references: [id])
   bidId       String       @db.ObjectId
-  bids        BidderItem[]
+  bidderItems BidderItem[]
 }
 
 model Bidder {
@@ -44,10 +44,10 @@ model Bidder {
 }
 
 model BidderItem {
-  id        String   @id @default(uuid()) @map("_id") @db.ObjectId
-  bidder    Bidder?  @relation(fields: [bidderId], references: [id])
-  bidderId  String   @db.ObjectId
-  bidItem   BidItem? @relation(fields: [bidItemId], references: [id])
-  bidItemId String?  @db.ObjectId
+  id        String  @id @default(uuid()) @map("_id") @db.ObjectId
+  bidder    Bidder  @relation(fields: [bidderId], references: [id])
+  bidderId  String  @db.ObjectId
+  bidItem   BidItem @relation(fields: [bidItemId], references: [id])
+  bidItemId String  @db.ObjectId
   amount    Float
 }
