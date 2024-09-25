@@ -50,4 +50,6 @@ model BidderItem {
   bidItem   BidItem @relation(fields: [bidItemId], references: [id])
   bidItemId String  @db.ObjectId
   amount    Float
+
+  @@unique([bidderId, bidItemId])
 }
