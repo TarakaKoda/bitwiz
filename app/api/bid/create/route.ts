@@ -1,9 +1,10 @@
 import { CreateBidSchema } from "@/lib/validations";
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/prisma/client";
+import { ObjectId } from "mongodb";
 
 export async function POST(req: NextRequest) {
-  const body =  await req.json();
+  const body = await req.json();
 
   const validation = CreateBidSchema.safeParse(body);
 
@@ -17,6 +18,7 @@ export async function POST(req: NextRequest) {
   try {
     const bid = await prisma.bid.create({
       data: {
+        id: new ObjectId().toString(),
         title,
         startTime: new Date(startTime),
         endTime: new Date(endTime),
@@ -27,6 +29,7 @@ export async function POST(req: NextRequest) {
     });
     return NextResponse.json(bid, { status: 201 });
   } catch (error) {
+    console.log(error);
     return NextResponse.json(
       { error: "Failed to create bid" },
       { status: 500 }
