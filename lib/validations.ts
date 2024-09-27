@@ -1,12 +1,20 @@
-import { z } from "zod";
+import { date, z } from "zod";
 
 export const CreateBidSchema = z.object({
   title: z
     .string()
     .min(1, { message: "Title is required" })
     .max(100, { message: "Title must be 100 characters or less" }),
-  startTime: z.string().datetime({ message: "Invalid start time format" }),
-  endTime: z.string().datetime({ message: "Invalid end time format" }),
+  startTime: z
+    .string()
+    .refine((val) => !isNaN(Date.parse(val)), {
+      message: "Invalid start time format",
+    }),
+  endTime: z
+    .string()
+    .refine((val) => !isNaN(Date.parse(val)), {
+      message: "Invalid end time format",
+    }),
   items: z.array(
     z.object({
       description: z

@@ -14,7 +14,7 @@ datasource db {
 }
 
 model Bid {
-  id          String    @id @default(uuid()) @map("_id") @db.ObjectId
+  id          String    @id @default(uuid()) @map("_id")
   title       String
   startTime   DateTime
   endTime     DateTime
@@ -26,29 +26,29 @@ model Bid {
 }
 
 model BidItem {
-  id          String       @id @default(uuid()) @map("_id") @db.ObjectId
+  id          String       @id @default(uuid()) @map("_id")
   description String
   bid         Bid          @relation(fields: [bidId], references: [id])
-  bidId       String       @db.ObjectId
+  bidId       String
   bidderItems BidderItem[]
 }
 
 model Bidder {
-  id          String       @id @default(uuid()) @map("_id") @db.ObjectId
+  id          String       @id @default(uuid()) @map("_id")
   name        String
   email       String       @unique
   accepted    Boolean      @default(false)
   bid         Bid          @relation(fields: [bidId], references: [id])
-  bidId       String       @db.ObjectId
+  bidId       String
   bidderItems BidderItem[]
 }
 
 model BidderItem {
-  id        String  @id @default(uuid()) @map("_id") @db.ObjectId
+  id        String  @id @default(uuid()) @map("_id")
   bidder    Bidder  @relation(fields: [bidderId], references: [id])
-  bidderId  String  @db.ObjectId
+  bidderId  String
   bidItem   BidItem @relation(fields: [bidItemId], references: [id])
-  bidItemId String  @db.ObjectId
+  bidItemId String
   amount    Float
 
   @@unique([bidderId, bidItemId])
