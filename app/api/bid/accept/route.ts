@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(updateBidder, { status: 200 });
   } catch (error) {
     return NextResponse.json(
-      { error: "Failed to update bid invitation status" },
+      { error: `Failed to update bid invitation status ${error}` },
       { status: 500 }
     );
   }

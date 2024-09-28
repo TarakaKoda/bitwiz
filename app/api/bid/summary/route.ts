@@ -1,6 +1,5 @@
-import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/prisma/client";
-import { error } from "console";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
@@ -49,7 +48,7 @@ export async function GET(req: NextRequest) {
     });
   } catch (error) {
     return NextResponse.json(
-      { error: "Error fetching bid summary" },
+      { error: `Error fetching bid summary ${error}` },
       { status: 500 }
     );
   }

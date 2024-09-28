@@ -59,7 +59,7 @@ const CreateBidForm = () => {
   };
 
   return (
-    <div>
+    <div className="w-full">
       <h2>Create a Bid</h2>
       {error && <p style={{ color: "red" }}>{error}</p>}
       <Form {...form}>

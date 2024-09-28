@@ -14,11 +14,12 @@ export async function POST(req: NextRequest) {
       { status: 400 }
     );
   }
-  const { title, startTime, endTime, items } = validation.data;
+  const { title, startTime, endTime, items, creatorId } = validation.data;
   try {
     const bid = await prisma.bid.create({
       data: {
         id: new ObjectId().toString(),
+        creatorId,
         title,
         startTime: new Date(startTime),
         endTime: new Date(endTime),
