@@ -1,7 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/prisma/client";
 import { InviteBiddersSchema } from "@/lib/validations";
-import { Bidder } from "@prisma/client";
+import { prisma } from "@/prisma/client";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
@@ -22,7 +21,9 @@ export async function POST(req: NextRequest) {
       bidders.map((bidder) => {
         return prisma.bidder.create({
           data: {
+            clerkId: bidder.clerkId,
             name: bidder.name,
+            picture: bidder.picture,
             email: bidder.email,
             bidId,
           },
@@ -32,7 +33,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ invitedBidders }, { status: 201 });
   } catch (error) {
     return NextResponse.json(
-      { error: "Failed to invite bidders" },
+      { error: `Failed to invite bidders ${error}` },
       { status: 500 }
     );
   }

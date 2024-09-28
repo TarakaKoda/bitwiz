@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
     );
   } catch (error) {
     return NextResponse.json(
-      { error: "Failed to place bids" },
+      { error: `Failed to place bids ${error}` },
       { status: 500 }
     );
   }

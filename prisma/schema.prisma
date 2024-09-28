@@ -18,6 +18,7 @@ model Bid {
   title       String
   startTime   DateTime
   endTime     DateTime
+  creatorId   String
   items       BidItem[]
   bidders     Bidder[]
   isPublished Boolean   @default(false)
@@ -35,9 +36,11 @@ model BidItem {
 
 model Bidder {
   id          String       @id @default(uuid()) @map("_id")
+  clerkId     String       @unique
   name        String
   email       String       @unique
   accepted    Boolean      @default(false)
+  picture     String
   bid         Bid          @relation(fields: [bidId], references: [id])
   bidId       String
   bidderItems BidderItem[]
