@@ -9,12 +9,12 @@ generator client {
 }
 
 datasource db {
-  provider = "mongodb"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model Bid {
-  id          String    @id @default(uuid()) @map("_id")
+  id          String    @id @default(uuid())
   title       String
   startTime   DateTime
   endTime     DateTime
@@ -27,7 +27,7 @@ model Bid {
 }
 
 model BidItem {
-  id          String       @id @default(uuid()) @map("_id")
+  id          String       @id @default(uuid())
   description String
   bid         Bid          @relation(fields: [bidId], references: [id])
   bidId       String
@@ -35,7 +35,7 @@ model BidItem {
 }
 
 model Bidder {
-  id          String       @id @default(uuid()) @map("_id")
+  id          String       @id @default(uuid())
   clerkId     String       @unique
   name        String
   email       String       @unique
@@ -47,7 +47,7 @@ model Bidder {
 }
 
 model BidderItem {
-  id        String  @id @default(uuid()) @map("_id")
+  id        String  @id @default(uuid())
   bidder    Bidder  @relation(fields: [bidderId], references: [id])
   bidderId  String
   bidItem   BidItem @relation(fields: [bidItemId], references: [id])
