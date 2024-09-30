@@ -41,8 +41,8 @@ model Bidder {
   email       String       @unique
   accepted    Boolean      @default(false)
   picture     String
-  bid         Bid          @relation(fields: [bidId], references: [id])
-  bidId       String
+  bid         Bid?          @relation(fields: [bidId], references: [id])
+  bidId       String?
   bidderItems BidderItem[]
 }
 
