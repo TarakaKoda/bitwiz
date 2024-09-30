@@ -1,8 +1,4 @@
 "use client";
-import { useState } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { CreateBidSchema } from "@/lib/validations"; // Import Zod schema
-import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -14,15 +10,20 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useForm } from "react-hook-form";
+import { CreateBidSchema } from "@/lib/validations"; // Import Zod schema
+import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
-const CreateBidForm = () => {
+const CreateBidForm = ({ currentBidderId }: { currentBidderId: string }) => {
   const [error, setError] = useState<string | null>(null);
 
   const form = useForm<z.infer<typeof CreateBidSchema>>({
     resolver: zodResolver(CreateBidSchema),
     defaultValues: {
+      creatorId: currentBidderId || "",
       title: "",
       startTime: new Date().toISOString().slice(0, -8), // Default to current date/time
       endTime: new Date(new Date().getTime() + 60 * 60 * 1000)
@@ -48,7 +49,10 @@ const CreateBidForm = () => {
   const onSubmit = async (values: z.infer<typeof CreateBidSchema>) => {
     console.log(values, new Date(values.startTime));
     try {
-      await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/bid/create`, values);
+      await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/bid/create`, {
+        ...values,
+        creatorId: currentBidderId,
+      });
     } catch (error) {
       if (axios.isAxiosError(error)) {
         setError(error.response?.data?.message || "An unknown error occurred");

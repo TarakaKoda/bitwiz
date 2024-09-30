@@ -1,7 +1,7 @@
-import CreateBidForm from "./components/create-bid-form";
+import CreateBid from "./components/create-bid";
 
 const Home = () => {
-  return <CreateBidForm />;
+  return <CreateBid />;
 };
 
 export default Home;

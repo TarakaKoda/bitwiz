@@ -5,6 +5,7 @@ import { Bidder } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
 export async function getBidderById(params: { clerkId: string }) {
+  console.log(params)
   try {
     const { clerkId } = params;
     const user = await prisma.bidder.findUnique({

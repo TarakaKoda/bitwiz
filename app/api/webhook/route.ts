@@ -72,7 +72,7 @@ export async function POST(req: Request) {
       picture: image_url,
     });
 
-    return NextResponse.json({ message: "OK", user: DbUser });
+    return NextResponse.json({ message: "OK - New Bidder Created", user: DbUser });
   }
   if (eventType === "user.updated") {
     const { id, email_addresses, first_name, last_name, image_url } = evt.data;
