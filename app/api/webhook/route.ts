@@ -61,30 +61,29 @@ export async function POST(req: Request) {
   const eventType = evt.type;
   if (eventType === "user.created") {
     const { id, email_addresses, first_name, last_name, image_url } = evt.data;
-  
+
     const DbUser = await createBidder({
       id: new ObjectId().toString(),
       clerkId: id,
-      name: `${first_name} ${last_name}`,
+      name: `${first_name} ${last_name ? last_name : ""}`,
       email: email_addresses[0].email_address,
       accepted: false,
       bidId: null, // No bid associated initially
       picture: image_url,
     });
-  
-    return NextResponse.json({ message:"OK", user: DbUser });
+
+    return NextResponse.json({ message: "OK", user: DbUser });
   }
-  
+
   if (eventType === "user.updated") {
     const { id, email_addresses, first_name, last_name, image_url } = evt.data;
 
     const DbUser = await updateBidder({
       clerkId: id,
       updatedData: {
-        name: `${first_name} ${last_name}`,
+        name: `${first_name} ${last_name ? last_name : ""}`,
         email: email_addresses[0].email_address,
         accepted: false,
-        bidId: "",
         picture: image_url,
       },
     });

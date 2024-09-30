@@ -63,10 +63,10 @@ const CreateBidForm = ({ currentBidderId }: { currentBidderId: string }) => {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full p-5 flex flex-col">
       <h2>Create a Bid</h2>
       {error && <p style={{ color: "red" }}>{error}</p>}
-      <Form {...form}>
+      <Form {...form} >
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           {/* Title Field */}
           <FormField
@@ -84,45 +84,46 @@ const CreateBidForm = ({ currentBidderId }: { currentBidderId: string }) => {
             )}
           />
 
-          {/* Start Time Field */}
-          <FormField
-            control={form.control}
-            name="startTime"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Start Time</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="Enter start time"
-                    type="datetime-local"
-                    {...field}
-                  />
-                </FormControl>
-                <FormDescription>Enter the starting bid time</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          {/* End Time Field */}
-          <FormField
-            control={form.control}
-            name="endTime"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>End Time</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="Enter end time"
-                    type="datetime-local"
-                    {...field}
-                  />
-                </FormControl>
-                <FormDescription>Enter the ending bid time</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          <div className="flex gap-5 w-full">
+            {/* Start Time Field */}
+            <FormField
+              control={form.control}
+              name="startTime"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel>Start Time</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Enter start time"
+                      type="datetime-local"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormDescription>Enter the starting bid time</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            {/* End Time Field */}
+            <FormField
+              control={form.control}
+              name="endTime"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel>End Time</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Enter end time"
+                      type="datetime-local"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormDescription>Enter the ending bid time</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
 
           {/* Dynamic Items */}
           {form.watch("items").map((item, index) => (

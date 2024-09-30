@@ -37,7 +37,7 @@ export async function updateBidder(updateBidderParams: {
     email: string;
     picture: string;
     accepted: boolean;
-    bidId: string;
+    bidId?: string;
   };
 }) {
   const { clerkId, updatedData } = updateBidderParams;

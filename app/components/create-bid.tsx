@@ -20,7 +20,11 @@ const CreateBid = async () => {
   }
 
   // Pass the current bidder id to the form
-  return <CreateBidForm currentBidderId={currentBidder.id} />;
+  return (
+    <div className="w-[20vw]">
+      <CreateBidForm currentBidderId={currentBidder.id} />
+    </div>
+  );
 };
 
 export default CreateBid;
